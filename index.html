@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>For You 🤍</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg1: #f8cdda;
+      --bg2: #f1a7c5;
+      --glass: rgba(255,255,255,0.25);
+      --text-soft: rgba(255,255,255,0.9);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--bg1), var(--bg2));
+      font-family: "Inter", sans-serif;
+      color: var(--text-soft);
+      overflow-x: hidden;
+    }
+
+    .hidden { display: none !important; }
+
+    /* ---------- CENTER ---------- */
+    .center {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    /* ---------- GLASS CARD ---------- */
+    .card {
+      max-width: 780px;
+      width: 100%;
+      background: var(--glass);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-radius: 28px;
+      padding: 45px 40px;
+      text-align: center;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+      animation: fadeUp 1.2s ease;
+    }
+
+    h1, h2 {
+      font-family: "Playfair Display", serif;
+      margin: 0;
+    }
+
+    h1 {
+      font-size: 2.6rem;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      opacity: 0.95;
+      margin-bottom: 25px;
+    }
+
+    p {
+      font-size: 1.15rem;
+      line-height: 1.8;
+      margin: 0;
+    }
+
+    /* ---------- BUTTON ---------- */
+    .btn {
+      margin-top: 35px;
+      padding: 14px 38px;
+      border-radius: 40px;
+      border: none;
+      background: white;
+      color: #e75480;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 45px rgba(0,0,0,0.3);
+    }
+
+    /* ---------- SLIDES ---------- */
+    .slide {
+      display: none;
+      animation: fade 0.8s ease;
+    }
+
+    .slide.active {
+      display: block;
+    }
+
+    /* ---------- MESSAGE ---------- */
+    .message {
+      font-size: 1.15rem;
+      line-height: 1.9;
+      min-height: 220px;
+    }
+
+    footer {
+      margin-top: 35px;
+      font-size: 1rem;
+      opacity: 0.85;
+    }
+
+    /* ---------- HEARTS ---------- */
+    .heart {
+      position: fixed;
+      bottom: -30px;
+      font-size: 20px;
+      animation: float 6s linear infinite;
+      opacity: 0.6;
+    }
+
+    @keyframes float {
+      to {
+        transform: translateY(-120vh);
+        opacity: 0;
+      }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fade {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- 🎁 REVEAL -->
+<div class="center" id="revealScreen">
+  <div class="card">
+    <h1>For you 🤍</h1>
+    <p>
+      This isn’t something big.  
+      Just something gentle… made with care.
+    </p>
+    <button class="btn" onclick="reveal()">Open</button>
+  </div>
+</div>
+
+<!-- 🌸 SLIDES -->
+<div class="center hidden" id="slides">
+  <div class="card">
+    <div class="slide active">
+      <p>
+        Some people leave a quiet impression.  
+        Not loud. Not dramatic.  
+        Just… meaningful.
+      </p>
+    </div>
+
+    <div class="slide">
+      <p>
+        A few moments.  
+        A few conversations.  
+        Still remembered kindly.
+      </p>
+    </div>
+
+    <div class="slide">
+      <p>
+        This page exists only to say one thing —  
+        what we shared mattered to me.
+      </p>
+    </div>
+
+    <div class="slide">
+      <p>
+        Wherever life takes you,  
+        I truly wish you warmth, peace,  
+        and beautiful days ahead.
+      </p>
+    </div>
+
+    <button class="btn" onclick="nextSlide()">Continue</button>
+  </div>
+</div>
+
+<!-- 🎂 FINAL MESSAGE -->
+<div class="center hidden" id="mainContent">
+  <div class="card">
+    <h1>Happy Birthday 🎂</h1>
+    <h2>Nivedha</h2>
+
+    <div class="message" id="typeText"></div>
+
+    <footer>
+      Always wishing you well.
+    </footer>
+  </div>
+</div>
+
+<!-- 🎶 MUSIC -->
+<audio id="bgMusic" loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  function reveal() {
+    document.getElementById("revealScreen").classList.add("hidden");
+    document.getElementById("slides").classList.remove("hidden");
+    document.getElementById("bgMusic").play();
+  }
+
+  let s = 0;
+  const slides = document.querySelectorAll(".slide");
+
+  function nextSlide() {
+    slides[s].classList.remove("active");
+    s++;
+    if (s < slides.length) {
+      slides[s].classList.add("active");
+    } else {
+      document.getElementById("slides").classList.add("hidden");
+      document.getElementById("mainContent").classList.remove("hidden");
+      startTyping();
+    }
+  }
+
+  const lines = [
+    "Today is your day.",
+    "",
+    "I hope it brings you calm moments,",
+    "soft smiles, and quiet happiness.",
+    "",
+    "May the year ahead be kind to you,",
+    "and give you everything you deserve.",
+    "",
+    "Happy Birthday 🤍"
+  ];
+
+  let li = 0, ci = 0;
+
+  function startTyping() {
+    if (li < lines.length) {
+      if (ci < lines[li].length) {
+        document.getElementById("typeText").innerHTML += lines[li][ci++];
+        setTimeout(startTyping, 40);
+      } else {
+        document.getElementById("typeText").innerHTML += "<br><br>";
+        ci = 0; li++;
+        setTimeout(startTyping, 400);
+      }
+    }
+  }
+
+  function heart() {
+    const h = document.createElement("div");
+    h.className = "heart";
+    h.innerHTML = "🤍";
+    h.style.left = Math.random() * 100 + "vw";
+    h.style.animationDuration = (Math.random() * 3 + 4) + "s";
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 7000);
+  }
+
+  setInterval(heart, 600);
+</script>
+
+</body>
+</html>
