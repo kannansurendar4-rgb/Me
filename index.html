@@ -3,14 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Nivedha 🤍</title>
+<title>Soul ✨</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
-:root {
-  --primary: #ffffff;
-  --soft: #e8f0f5;
+* {
+  box-sizing: border-box;
 }
 
 body {
@@ -18,67 +17,75 @@ body {
   height: 100vh;
   overflow: hidden;
   font-family: "Inter", sans-serif;
-  background: radial-gradient(circle at 20% 20%, #1f3c4d, #0f2027 70%);
-  color: var(--soft);
+  background: radial-gradient(circle at center, #1a2a33, #0d141a 80%);
+  color: #f5f5f5;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
-/* Floating Background Glow */
+/* Floating Golden Particles */
 body::before {
   content: "";
   position: absolute;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(255,255,255,0.08), transparent 70%);
-  animation: floatGlow 10s infinite alternate ease-in-out;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(rgba(255,215,0,0.15) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: moveStars 40s linear infinite;
+  z-index: 0;
 }
 
-@keyframes floatGlow {
-  from { transform: translate(-100px,-100px); }
-  to { transform: translate(100px,100px); }
+@keyframes moveStars {
+  from { transform: translateY(0); }
+  to { transform: translateY(-200px); }
 }
 
 .card {
   text-align: center;
-  max-width: 650px;
-  padding: 40px;
+  max-width: 800px;
+  padding: 50px;
   z-index: 2;
   animation: fadeIn 1.5s ease;
 }
 
 h1 {
   font-family: "Playfair Display", serif;
-  font-size: 3rem;
+  font-size: 4rem;
   margin-bottom: 10px;
+  letter-spacing: 2px;
 }
 
 .name {
-  font-size: 1.5rem;
-  margin-bottom: 25px;
-  animation: heartbeat 2s infinite;
+  font-size: 2rem;
+  margin-bottom: 30px;
+  background: linear-gradient(90deg, #ffffff, #ffd700, #ffffff);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 4s linear infinite;
 }
 
-@keyframes heartbeat {
-  0% { transform: scale(1); }
-  25% { transform: scale(1.05); }
-  50% { transform: scale(1); }
+@keyframes shine {
+  to { background-position: 200% center; }
 }
 
 button {
-  padding: 12px 32px;
-  border-radius: 30px;
-  border: none;
-  background: white;
-  color: #0f2027;
-  font-weight: 500;
+  padding: 14px 40px;
+  border-radius: 40px;
+  border: 1px solid #fff;
+  background: transparent;
+  color: #fff;
+  font-size: 1rem;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.4s;
 }
 
 button:hover {
-  transform: scale(1.08);
+  background: #fff;
+  color: #0d141a;
+  transform: scale(1.1);
 }
 
 .hidden {
@@ -86,33 +93,34 @@ button:hover {
 }
 
 .message {
-  font-size: 1.2rem;
-  line-height: 2;
-  min-height: 150px;
+  font-size: 1.4rem;
+  line-height: 2.2;
+  margin-top: 20px;
+  min-height: 180px;
 }
 
 .final-line {
-  margin-top: 30px;
-  font-size: 1.6rem;
+  margin-top: 40px;
+  font-size: 1.8rem;
   font-family: "Playfair Display", serif;
   opacity: 0;
-  animation: reveal 2s forwards;
-  animation-delay: 7s;
+  animation: reveal 3s ease forwards;
+  animation-delay: 8s;
 }
 
 footer {
-  margin-top: 40px;
-  opacity: 0.6;
+  margin-top: 50px;
   font-size: 0.9rem;
+  opacity: 0.5;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.95); }
+  from { opacity: 0; transform: scale(0.9); }
   to { opacity: 1; transform: scale(1); }
 }
 
 @keyframes reveal {
-  from { opacity: 0; transform: translateY(20px); }
+  from { opacity: 0; transform: translateY(40px); }
   to { opacity: 1; transform: translateY(0); }
 }
 </style>
@@ -120,27 +128,27 @@ footer {
 
 <body>
 
-<!-- Intro -->
+<!-- INTRO SCREEN -->
 <div class="card" id="intro">
-  <h1>Hey 🤍</h1>
-  <p>I made something special for you.</p>
+  <h1>For You ✨</h1>
+  <p style="opacity:0.8;">Take a moment.</p>
   <br>
-  <button onclick="start()">Open</button>
+  <button onclick="start()">Begin</button>
 </div>
 
-<!-- Main Content -->
+<!-- MAIN CONTENT -->
 <div class="card hidden" id="mainContent">
   <h1>Happy Birthday</h1>
-  <div class="name">Nivedha ✨</div>
+  <div class="name">Soul</div>
 
   <div class="message" id="typeText"></div>
 
   <div class="final-line">
-    ✨ May this year bring you peace, growth, and everything your heart quietly wishes for 🤍
+    ✨ May this year elevate you to places your heart has been quietly dreaming of.
   </div>
 
   <footer>
-    Always wishing you well.
+    Created with intention.
   </footer>
 </div>
 
@@ -152,14 +160,15 @@ function start() {
 }
 
 const textLines = [
-  "Today is about you.",
+  "Today isn’t ordinary.",
   "",
-  "Your smile.",
-  "Your strength.",
-  "Your quiet magic.",
+  "It’s the day someone rare was born.",
   "",
-  "I hope this year surprises you in beautiful ways,",
-  "and gives you moments that stay in your heart."
+  "Your presence changes rooms.",
+  "Your strength inspires quietly.",
+  "",
+  "May this year reward you",
+  "with everything you truly deserve."
 ];
 
 let lineIndex = 0;
@@ -170,12 +179,12 @@ function typeEffect() {
     if (charIndex < textLines[lineIndex].length) {
       document.getElementById("typeText").innerHTML += textLines[lineIndex][charIndex];
       charIndex++;
-      setTimeout(typeEffect, 40);
+      setTimeout(typeEffect, 35);
     } else {
       document.getElementById("typeText").innerHTML += "<br/>";
       lineIndex++;
       charIndex = 0;
-      setTimeout(typeEffect, 400);
+      setTimeout(typeEffect, 500);
     }
   }
 }
