@@ -13,13 +13,10 @@
 body {
   margin: 0;
   min-height: 100vh;
-  overflow-y: auto;
-  overflow-x: hidden;
-  scroll-behavior: smooth;
   background: radial-gradient(circle at 50% 40%, #141b2d, #04050a);
   font-family: "Inter", sans-serif;
   color: white;
-  perspective: 1200px;
+  overflow-x: hidden;
 }
 
 /* ===== STARS ===== */
@@ -28,33 +25,17 @@ body {
   inset: 0;
   z-index: 0;
 }
-
 .stars span {
   position: absolute;
   width: 2px;
   height: 2px;
   background: white;
-  opacity: 0.6;
+  opacity: 0.5;
   animation: twinkle 3s infinite alternate;
 }
-
 @keyframes twinkle {
   from { opacity: 0.2; }
-  to { opacity: 1; }
-}
-
-/* ===== ORBS ===== */
-.orb {
-  position: fixed;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,255,255,0.25), transparent 70%);
-  animation: float 16s infinite alternate ease-in-out;
-  z-index: 0;
-}
-
-@keyframes float {
-  from { transform: translateY(-60px); }
-  to { transform: translateY(60px); }
+  to { opacity: 0.9; }
 }
 
 /* ===== CONTAINER ===== */
@@ -62,7 +43,7 @@ body {
   position: relative;
   z-index: 2;
   min-height: 100vh;
-  padding: 120px 20px 180px;
+  padding: 140px 20px 180px;
   display: flex;
   justify-content: center;
   text-align: center;
@@ -70,105 +51,66 @@ body {
 
 /* ===== SCREENS ===== */
 .screen {
-  max-width: 900px;
+  max-width: 850px;
   width: 100%;
-  transition: 1.2s ease;
+  transition: opacity 1.2s ease;
 }
-
 .hidden {
   opacity: 0;
-  transform: scale(1.08);
   pointer-events: none;
   position: absolute;
 }
 
-/* ===== 3D MAGIC TEXT ===== */
-.magic-text {
-  display: inline-block;
-  position: relative;
-  transform-style: preserve-3d;
-  animation: float3d 6s ease-in-out infinite;
-  text-shadow:
-    0 1px 0 #ccc,
-    0 2px 0 #bbb,
-    0 3px 0 #aaa,
-    0 6px 14px rgba(0,0,0,0.6);
-}
-
-@keyframes float3d {
-  0%   { transform: translateY(0) rotateX(0deg); }
-  50%  { transform: translateY(-10px) rotateX(6deg); }
-  100% { transform: translateY(0) rotateX(0deg); }
-}
-
-/* ===== SHIMMER ===== */
-.magic-text::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    120deg,
-    transparent 30%,
-    rgba(255,255,255,0.7),
-    transparent 70%
-  );
-  transform: translateX(-120%);
-  animation: shimmer 6s infinite;
-}
-
-@keyframes shimmer {
-  0% { transform: translateX(-120%); }
-  40% { transform: translateX(120%); }
-  100% { transform: translateX(120%); }
-}
-
-/* ===== HOVER TILT ===== */
-.magic-text:hover {
-  transform: perspective(800px) rotateX(12deg) rotateY(-12deg) scale(1.05);
-  transition: transform 0.6s ease;
-}
-
-/* ===== HEADERS ===== */
-h1 {
+/* ===== HERO TITLE ===== */
+.hero {
   font-family: "Playfair Display", serif;
-  font-size: clamp(2.6rem, 5vw, 4rem);
+  font-size: clamp(3rem, 6vw, 4.2rem);
   margin: 0;
-}
-
-/* ===== SOUL NAME ===== */
-.name {
-  margin-top: 30px;
-  font-size: clamp(2.4rem, 4vw, 3.2rem);
-  font-family: "Playfair Display", serif;
-  color: #fff;
-  animation: soulBreath 4s infinite alternate;
+  letter-spacing: 0.05em;
   text-shadow:
-    0 0 20px rgba(255,215,150,0.6),
-    0 0 45px rgba(255,215,150,0.9),
-    0 12px 30px rgba(0,0,0,0.7);
+    0 2px 0 #ccc,
+    0 6px 15px rgba(0,0,0,0.5);
+  animation: heroRise 2s ease forwards;
 }
 
-@keyframes soulBreath {
-  from { letter-spacing: 0.05em; }
-  to   { letter-spacing: 0.18em; }
+@keyframes heroRise {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== NAME ===== */
+.name {
+  margin-top: 25px;
+  font-family: "Playfair Display", serif;
+  font-size: clamp(2.2rem, 4vw, 3rem);
+  color: #fff;
+  letter-spacing: 0.15em;
+  text-shadow:
+    0 0 25px rgba(255,215,150,0.6),
+    0 0 50px rgba(255,215,150,0.9);
+  animation: nameGlow 4s ease-in-out infinite alternate;
+}
+
+@keyframes nameGlow {
+  from { opacity: 0.85; }
+  to { opacity: 1; }
 }
 
 /* ===== MESSAGE ===== */
 .message {
-  margin-top: 55px;
+  margin-top: 70px;
   font-size: clamp(1.1rem, 2vw, 1.5rem);
-  line-height: 2.3;
+  line-height: 2.4;
 }
 
-/* ===== LETTER ANIMATION ===== */
-.letter {
-  display: inline-block;
+/* ===== LINE REVEAL ===== */
+.line {
   opacity: 0;
-  transform: translateY(12px);
-  animation: letterRise 0.6s forwards;
+  transform: translateY(20px);
+  animation: reveal 1.2s ease forwards;
 }
 
-@keyframes letterRise {
+@keyframes reveal {
   to {
     opacity: 1;
     transform: translateY(0);
@@ -177,31 +119,29 @@ h1 {
 
 /* ===== FINAL ===== */
 .final {
-  margin-top: 90px;
+  margin-top: 100px;
   font-family: "Playfair Display", serif;
   font-size: clamp(1.4rem, 3vw, 2rem);
   opacity: 0;
-  animation: rise 3s forwards;
-  animation-delay: 12s;
+  animation: reveal 2s ease forwards;
+  animation-delay: 9s;
 }
 
-@keyframes rise {
-  from { opacity: 0; transform: translateY(50px); }
-  to { opacity: 1; transform: translateY(0); }
+/* ===== BUTTON ===== */
+button {
+  margin-top: 40px;
+  padding: 14px 50px;
+  border-radius: 40px;
+  border: 1px solid white;
+  background: transparent;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.4s;
 }
-
-/* ===== SCROLL HINT ===== */
-.scroll-hint {
-  margin-top: 50px;
-  font-size: 1.6rem;
-  opacity: 0.6;
-  animation: floatHint 2s infinite;
-}
-
-@keyframes floatHint {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(14px); }
-  100% { transform: translateY(0); }
+button:hover {
+  background: white;
+  color: #04050a;
 }
 </style>
 </head>
@@ -209,28 +149,24 @@ h1 {
 <body>
 
 <div class="stars" id="stars"></div>
-<div class="orb" style="width:420px;height:420px;top:8%;left:18%;"></div>
-<div class="orb" style="width:320px;height:320px;bottom:12%;right:15%;animation-delay:4s;"></div>
 
 <div class="container">
 
   <!-- INTRO -->
   <div class="screen" id="intro">
-    <h1 class="magic-text">For Soul ✨</h1>
-    <div class="subtitle">Pause. Breathe. Enter.</div>
+    <h1 class="hero">For Soul ✨</h1>
+    <div style="margin-top:18px; opacity:0.7;">Take a breath.</div>
     <button onclick="begin()">Enter</button>
   </div>
 
   <!-- MAIN -->
   <div class="screen hidden" id="main">
-    <h1 class="magic-text">Happy Birthday</h1>
-    <div class="name magic-text">Soul</div>
+    <h1 class="hero">Happy Birthday</h1>
+    <div class="name">SOUL</div>
 
     <div class="message" id="text"></div>
 
-    <div class="scroll-hint">↓</div>
-
-    <div class="final magic-text">
+    <div class="final">
       ✨ May your spirit rise higher than every limit.
     </div>
   </div>
@@ -240,7 +176,7 @@ h1 {
 <script>
 /* Stars */
 const stars = document.getElementById("stars");
-for (let i = 0; i < 150; i++) {
+for (let i = 0; i < 120; i++) {
   const s = document.createElement("span");
   s.style.top = Math.random() * 100 + "%";
   s.style.left = Math.random() * 100 + "%";
@@ -248,51 +184,35 @@ for (let i = 0; i < 150; i++) {
   stars.appendChild(s);
 }
 
-/* Start */
+/* Begin */
 function begin() {
   document.getElementById("intro").classList.add("hidden");
   setTimeout(() => {
     document.getElementById("main").classList.remove("hidden");
-    typeEffect();
-  }, 1200);
+    showLines();
+  }, 1000);
 }
 
-/* Typing with per-letter animation */
+/* Lines */
 const lines = [
   "Not everyone carries depth.",
-  "",
   "Not everyone carries quiet strength.",
-  "",
   "But you do.",
-  "",
   "A soul that glows without noise.",
   "A presence that speaks without words.",
-  "",
   "May this year unfold in extraordinary ways."
 ];
 
-let line = 0;
-let char = 0;
-const speed = 35;
-const textEl = document.getElementById("text");
+const text = document.getElementById("text");
 
-function typeEffect() {
-  if (line < lines.length) {
-    if (char < lines[line].length) {
-      const span = document.createElement("span");
-      span.className = "letter magic-text";
-      span.style.animationDelay = Math.random() * 0.3 + "s";
-      span.textContent = lines[line][char];
-      textEl.appendChild(span);
-      char++;
-      setTimeout(typeEffect, speed);
-    } else {
-      textEl.appendChild(document.createElement("br"));
-      line++;
-      char = 0;
-      setTimeout(typeEffect, 600);
-    }
-  }
+function showLines() {
+  lines.forEach((line, i) => {
+    const div = document.createElement("div");
+    div.className = "line";
+    div.style.animationDelay = `${i * 1.2}s`;
+    div.textContent = line;
+    text.appendChild(div);
+  });
 }
 </script>
 
