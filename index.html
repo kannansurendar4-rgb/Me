@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Happy Birthday Soul ✨</title>
+<title>For Soul ✨</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
@@ -12,11 +12,11 @@
 
 body {
   margin: 0;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
   background: radial-gradient(circle at 50% 40%, #141b2d, #04050a);
   font-family: "Inter", sans-serif;
   color: white;
-  overflow-x: hidden;
 }
 
 /* ===== STARS ===== */
@@ -30,77 +30,44 @@ body {
   width: 2px;
   height: 2px;
   background: white;
-  opacity: 0.5;
+  opacity: 0.4;
   animation: twinkle 3s infinite alternate;
 }
 @keyframes twinkle {
   from { opacity: 0.2; }
-  to { opacity: 0.9; }
+  to { opacity: 0.8; }
 }
 
-/* ===== CONTAINER ===== */
-.container {
-  position: relative;
-  z-index: 2;
-  min-height: 100vh;
-  padding: 140px 20px 180px;
+/* ===== SLIDES ===== */
+.slide {
+  position: absolute;
+  inset: 0;
   display: flex;
   justify-content: center;
+  align-items: center;
   text-align: center;
+  padding: 40px;
+  transition: opacity 1.2s ease, transform 1.2s ease;
+  z-index: 2;
 }
 
-/* ===== HERO 3D TITLE ===== */
-.hero {
-  font-family: "Playfair Display", serif;
-  font-size: clamp(3.2rem, 6vw, 4.5rem);
-  margin: 0;
-  letter-spacing: 0.08em;
-  color: #fff;
-  text-shadow:
-    0 1px 0 #eee,
-    0 3px 0 #ccc,
-    0 6px 0 #aaa,
-    0 12px 25px rgba(0,0,0,0.6);
-  animation: heroFloat 5s ease-in-out infinite;
-}
-
-@keyframes heroFloat {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0); }
-}
-
-/* ===== SOUL NAME (CRYSTAL EFFECT) ===== */
-.name {
-  margin-top: 30px;
-  font-family: "Playfair Display", serif;
-  font-size: clamp(2.4rem, 4vw, 3.2rem);
-  letter-spacing: 0.25em;
-  color: #fff;
-  text-shadow:
-    0 0 15px rgba(255,215,150,0.6),
-    0 0 35px rgba(255,215,150,0.9),
-    0 10px 25px rgba(0,0,0,0.7);
-  animation: soulPulse 4s ease-in-out infinite;
-}
-
-@keyframes soulPulse {
-  from { opacity: 0.8; }
-  to { opacity: 1; }
-}
-
-/* ===== MESSAGE ===== */
-.message {
-  margin-top: 70px;
-  font-size: clamp(1.1rem, 2vw, 1.5rem);
-  line-height: 2.4;
-}
-
-/* ===== LINE REVEAL ===== */
-.line {
+.hidden {
   opacity: 0;
-  transform: translateY(25px);
-  animation: reveal 1.3s ease forwards;
+  pointer-events: none;
+  transform: scale(1.05);
+}
+
+/* ===== SLIDE 1 ===== */
+.quotes {
+  max-width: 700px;
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  line-height: 2.2;
+}
+
+.quote {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: reveal 1.4s ease forwards;
 }
 
 @keyframes reveal {
@@ -110,31 +77,72 @@ body {
   }
 }
 
-/* ===== FINAL BLESSING ===== */
-.final {
-  margin-top: 100px;
-  font-family: "Playfair Display", serif;
-  font-size: clamp(1.5rem, 3vw, 2.1rem);
-  color: #ffeec2;
-  opacity: 0;
-  animation: reveal 2s ease forwards;
-  animation-delay: 8s;
+button {
+  margin-top: 50px;
+  padding: 14px 50px;
+  border-radius: 40px;
+  border: 1px solid white;
+  background: transparent;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.4s;
+}
+button:hover {
+  background: white;
+  color: #04050a;
 }
 
-/* ===== CONFETTI SPARKLES ===== */
-.sparkle {
+/* ===== SLIDE 2 ===== */
+.hero {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(3.2rem, 6vw, 4.8rem);
+  letter-spacing: 0.08em;
+  margin: 0;
+  color: #fff;
+  text-shadow:
+    0 2px 0 #eee,
+    0 6px 0 #ccc,
+    0 14px 30px rgba(0,0,0,0.7);
+  animation: heroRise 2s ease forwards;
+}
+
+@keyframes heroRise {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.name {
+  margin-top: 30px;
+  font-family: "Playfair Display", serif;
+  font-size: clamp(2.4rem, 4vw, 3.4rem);
+  letter-spacing: 0.25em;
+  color: #ffeec2;
+  text-shadow:
+    0 0 25px rgba(255,215,150,0.8),
+    0 0 50px rgba(255,215,150,1);
+  animation: glow 3s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from { opacity: 0.8; }
+  to { opacity: 1; }
+}
+
+/* ===== CONFETTI ===== */
+.confetti {
   position: fixed;
   width: 4px;
   height: 4px;
   background: gold;
   border-radius: 50%;
-  opacity: 0.6;
+  opacity: 0.7;
   animation: fall 6s linear infinite;
 }
 
 @keyframes fall {
-  from { transform: translateY(-10vh); opacity: 0; }
-  to { transform: translateY(110vh); opacity: 0.6; }
+  from { transform: translateY(-10vh); }
+  to { transform: translateY(110vh); }
 }
 </style>
 </head>
@@ -143,23 +151,35 @@ body {
 
 <div class="stars" id="stars"></div>
 
-<div class="container">
+<!-- SLIDE 1 -->
+<div class="slide" id="slide1">
+  <div class="quotes">
+    <div class="quote" style="animation-delay:0s">
+      Not everyone carries depth.
+    </div>
+    <div class="quote" style="animation-delay:1.2s">
+      Not everyone carries quiet strength.
+    </div>
+    <div class="quote" style="animation-delay:2.4s">
+      But you do.
+    </div>
+
+    <button onclick="nextSlide()">Next →</button>
+  </div>
+</div>
+
+<!-- SLIDE 2 -->
+<div class="slide hidden" id="slide2">
   <div>
     <h1 class="hero">Happy Birthday</h1>
     <div class="name">SOUL</div>
-
-    <div class="message" id="text"></div>
-
-    <div class="final">
-      ✨ May this year wrap you in joy, peace, and endless light.
-    </div>
   </div>
 </div>
 
 <script>
 /* Stars */
 const stars = document.getElementById("stars");
-for (let i = 0; i < 130; i++) {
+for (let i = 0; i < 120; i++) {
   const s = document.createElement("span");
   s.style.top = Math.random() * 100 + "%";
   s.style.left = Math.random() * 100 + "%";
@@ -167,35 +187,25 @@ for (let i = 0; i < 130; i++) {
   stars.appendChild(s);
 }
 
-/* Confetti sparkles */
-for (let i = 0; i < 25; i++) {
-  const sp = document.createElement("div");
-  sp.className = "sparkle";
-  sp.style.left = Math.random() * 100 + "vw";
-  sp.style.animationDelay = Math.random() * 6 + "s";
-  sp.style.opacity = Math.random();
-  document.body.appendChild(sp);
+/* Confetti */
+function confetti() {
+  for (let i = 0; i < 30; i++) {
+    const c = document.createElement("div");
+    c.className = "confetti";
+    c.style.left = Math.random() * 100 + "vw";
+    c.style.animationDelay = Math.random() * 6 + "s";
+    document.body.appendChild(c);
+  }
 }
 
-/* Message lines */
-const lines = [
-  "Not everyone carries depth.",
-  "Not everyone carries quiet strength.",
-  "But you do.",
-  "A soul that glows without noise.",
-  "A presence that speaks without words.",
-  "Today is yours — and it’s beautiful."
-];
-
-const text = document.getElementById("text");
-
-lines.forEach((line, i) => {
-  const div = document.createElement("div");
-  div.className = "line";
-  div.style.animationDelay = `${i * 1.2}s`;
-  div.textContent = line;
-  text.appendChild(div);
-});
+/* Slide switch */
+function nextSlide() {
+  document.getElementById("slide1").classList.add("hidden");
+  setTimeout(() => {
+    document.getElementById("slide2").classList.remove("hidden");
+    confetti();
+  }, 800);
+}
 </script>
 
 </body>
