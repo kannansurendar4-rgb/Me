@@ -19,6 +19,7 @@ body {
   background: radial-gradient(circle at 50% 40%, #141b2d, #04050a);
   font-family: "Inter", sans-serif;
   color: white;
+  perspective: 1200px;
 }
 
 /* ===== STARS ===== */
@@ -42,18 +43,18 @@ body {
   to { opacity: 1; }
 }
 
-/* ===== FLOATING ORBS ===== */
+/* ===== ORBS ===== */
 .orb {
   position: fixed;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(255,255,255,0.25), transparent 70%);
-  animation: float 14s infinite alternate ease-in-out;
+  animation: float 16s infinite alternate ease-in-out;
   z-index: 0;
 }
 
 @keyframes float {
-  from { transform: translateY(-40px); }
-  to { transform: translateY(40px); }
+  from { transform: translateY(-60px); }
+  to { transform: translateY(60px); }
 }
 
 /* ===== CONTAINER ===== */
@@ -61,7 +62,7 @@ body {
   position: relative;
   z-index: 2;
   min-height: 100vh;
-  padding: 120px 20px 160px;
+  padding: 120px 20px 180px;
   display: flex;
   justify-content: center;
   text-align: center;
@@ -76,97 +77,137 @@ body {
 
 .hidden {
   opacity: 0;
-  transform: scale(1.05);
+  transform: scale(1.08);
   pointer-events: none;
   position: absolute;
 }
 
-/* ===== TEXT ===== */
+/* ===== 3D MAGIC TEXT ===== */
+.magic-text {
+  display: inline-block;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: float3d 6s ease-in-out infinite;
+  text-shadow:
+    0 1px 0 #ccc,
+    0 2px 0 #bbb,
+    0 3px 0 #aaa,
+    0 6px 14px rgba(0,0,0,0.6);
+}
+
+@keyframes float3d {
+  0%   { transform: translateY(0) rotateX(0deg); }
+  50%  { transform: translateY(-10px) rotateX(6deg); }
+  100% { transform: translateY(0) rotateX(0deg); }
+}
+
+/* ===== SHIMMER ===== */
+.magic-text::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent 30%,
+    rgba(255,255,255,0.7),
+    transparent 70%
+  );
+  transform: translateX(-120%);
+  animation: shimmer 6s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-120%); }
+  40% { transform: translateX(120%); }
+  100% { transform: translateX(120%); }
+}
+
+/* ===== HOVER TILT ===== */
+.magic-text:hover {
+  transform: perspective(800px) rotateX(12deg) rotateY(-12deg) scale(1.05);
+  transition: transform 0.6s ease;
+}
+
+/* ===== HEADERS ===== */
 h1 {
   font-family: "Playfair Display", serif;
-  font-size: clamp(2.4rem, 5vw, 3.8rem);
+  font-size: clamp(2.6rem, 5vw, 4rem);
   margin: 0;
 }
 
-.subtitle {
-  margin-top: 15px;
-  opacity: 0.75;
-  letter-spacing: 0.05em;
-}
-
-/* ===== BUTTON ===== */
-button {
-  margin-top: 45px;
-  padding: 15px 55px;
-  border-radius: 50px;
-  border: 1px solid white;
-  background: transparent;
-  color: white;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: 0.5s;
-}
-
-button:hover {
-  background: white;
-  color: #04050a;
-  transform: scale(1.1);
-}
-
-/* ===== NAME GLOW ===== */
+/* ===== SOUL NAME ===== */
 .name {
   margin-top: 30px;
-  font-size: clamp(2.2rem, 4vw, 3rem);
+  font-size: clamp(2.4rem, 4vw, 3.2rem);
   font-family: "Playfair Display", serif;
-  animation: soulGlow 4s infinite alternate;
+  color: #fff;
+  animation: soulBreath 4s infinite alternate;
+  text-shadow:
+    0 0 20px rgba(255,215,150,0.6),
+    0 0 45px rgba(255,215,150,0.9),
+    0 12px 30px rgba(0,0,0,0.7);
 }
 
-@keyframes soulGlow {
-  from { text-shadow: 0 0 15px rgba(255,255,255,0.3); }
-  to { text-shadow: 0 0 45px rgba(255,215,150,1); }
+@keyframes soulBreath {
+  from { letter-spacing: 0.05em; }
+  to   { letter-spacing: 0.18em; }
 }
 
 /* ===== MESSAGE ===== */
 .message {
-  margin-top: 45px;
-  font-size: clamp(1.05rem, 2vw, 1.45rem);
-  line-height: 2.2;
+  margin-top: 55px;
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  line-height: 2.3;
 }
 
-/* ===== FINAL BLESSING ===== */
+/* ===== LETTER ANIMATION ===== */
+.letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: letterRise 0.6s forwards;
+}
+
+@keyframes letterRise {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== FINAL ===== */
 .final {
-  margin-top: 80px;
+  margin-top: 90px;
   font-family: "Playfair Display", serif;
-  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  font-size: clamp(1.4rem, 3vw, 2rem);
   opacity: 0;
   animation: rise 3s forwards;
-  animation-delay: 11s;
+  animation-delay: 12s;
 }
 
 @keyframes rise {
-  from { opacity: 0; transform: translateY(40px); }
+  from { opacity: 0; transform: translateY(50px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 /* ===== SCROLL HINT ===== */
 .scroll-hint {
   margin-top: 50px;
-  font-size: 1.5rem;
-  opacity: 0.5;
+  font-size: 1.6rem;
+  opacity: 0.6;
   animation: floatHint 2s infinite;
 }
 
 @keyframes floatHint {
-  0% { transform: translateY(0); opacity: 0.4; }
-  50% { transform: translateY(12px); opacity: 0.8; }
-  100% { transform: translateY(0); opacity: 0.4; }
+  0% { transform: translateY(0); }
+  50% { transform: translateY(14px); }
+  100% { transform: translateY(0); }
 }
 </style>
 </head>
 
 <body>
 
-<!-- Background -->
 <div class="stars" id="stars"></div>
 <div class="orb" style="width:420px;height:420px;top:8%;left:18%;"></div>
 <div class="orb" style="width:320px;height:320px;bottom:12%;right:15%;animation-delay:4s;"></div>
@@ -175,21 +216,21 @@ button:hover {
 
   <!-- INTRO -->
   <div class="screen" id="intro">
-    <h1>For Soul ✨</h1>
+    <h1 class="magic-text">For Soul ✨</h1>
     <div class="subtitle">Pause. Breathe. Enter.</div>
     <button onclick="begin()">Enter</button>
   </div>
 
   <!-- MAIN -->
   <div class="screen hidden" id="main">
-    <h1>Happy Birthday</h1>
-    <div class="name">Soul</div>
+    <h1 class="magic-text">Happy Birthday</h1>
+    <div class="name magic-text">Soul</div>
 
     <div class="message" id="text"></div>
 
     <div class="scroll-hint">↓</div>
 
-    <div class="final">
+    <div class="final magic-text">
       ✨ May your spirit rise higher than every limit.
     </div>
   </div>
@@ -197,9 +238,9 @@ button:hover {
 </div>
 
 <script>
-/* Generate stars */
+/* Stars */
 const stars = document.getElementById("stars");
-for (let i = 0; i < 140; i++) {
+for (let i = 0; i < 150; i++) {
   const s = document.createElement("span");
   s.style.top = Math.random() * 100 + "%";
   s.style.left = Math.random() * 100 + "%";
@@ -216,7 +257,7 @@ function begin() {
   }, 1200);
 }
 
-/* Typing effect */
+/* Typing with per-letter animation */
 const lines = [
   "Not everyone carries depth.",
   "",
@@ -232,17 +273,21 @@ const lines = [
 
 let line = 0;
 let char = 0;
-const speed = 38;
+const speed = 35;
 const textEl = document.getElementById("text");
 
 function typeEffect() {
   if (line < lines.length) {
     if (char < lines[line].length) {
-      textEl.innerHTML += lines[line][char];
+      const span = document.createElement("span");
+      span.className = "letter magic-text";
+      span.style.animationDelay = Math.random() * 0.3 + "s";
+      span.textContent = lines[line][char];
+      textEl.appendChild(span);
       char++;
       setTimeout(typeEffect, speed);
     } else {
-      textEl.innerHTML += "<br/>";
+      textEl.appendChild(document.createElement("br"));
       line++;
       char = 0;
       setTimeout(typeEffect, 600);
