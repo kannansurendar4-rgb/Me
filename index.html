@@ -1,279 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>For You 🤍</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Nivedha 🤍</title>
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
-  <style>
-    :root {
-      --bg1: #f8cdda;
-      --bg2: #f1a7c5;
-      --glass: rgba(255,255,255,0.25);
-      --text-soft: rgba(255,255,255,0.9);
-    }
+<style>
+:root {
+  --bg1: #0f2027;
+  --bg2: #203a43;
+  --bg3: #2c5364;
+  --text-soft: #f4f4f4;
+}
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background: linear-gradient(135deg, var(--bg1), var(--bg2));
-      font-family: "Inter", sans-serif;
-      color: var(--text-soft);
-      overflow-x: hidden;
-    }
+body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--bg1), var(--bg2), var(--bg3));
+  font-family: "Inter", sans-serif;
+  color: var(--text-soft);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-    .hidden { display: none !important; }
+.card {
+  text-align: center;
+  max-width: 600px;
+  padding: 40px;
+  animation: fadeUp 1.2s ease;
+}
 
-    /* ---------- CENTER ---------- */
-    .center {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
+h1 {
+  font-family: "Playfair Display", serif;
+  font-size: 2.8rem;
+  margin-bottom: 10px;
+}
 
-    /* ---------- GLASS CARD ---------- */
-    .card {
-      max-width: 780px;
-      width: 100%;
-      background: var(--glass);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border-radius: 28px;
-      padding: 45px 40px;
-      text-align: center;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.25);
-      animation: fadeUp 1.2s ease;
-    }
+h2 {
+  font-weight: 400;
+  opacity: 0.9;
+  margin-bottom: 30px;
+}
 
-    h1, h2 {
-      font-family: "Playfair Display", serif;
-      margin: 0;
-    }
+button {
+  padding: 12px 30px;
+  border-radius: 30px;
+  border: none;
+  background: white;
+  color: #203a43;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s;
+}
 
-    h1 {
-      font-size: 2.6rem;
-      margin-bottom: 10px;
-    }
+button:hover {
+  transform: scale(1.05);
+}
 
-    h2 {
-      font-size: 1.6rem;
-      opacity: 0.95;
-      margin-bottom: 25px;
-    }
+.message {
+  font-size: 1.2rem;
+  line-height: 2;
+  margin-top: 20px;
+}
 
-    p {
-      font-size: 1.15rem;
-      line-height: 1.8;
-      margin: 0;
-    }
+.final-line {
+  margin-top: 30px;
+  font-size: 1.5rem;
+  font-family: "Playfair Display", serif;
+  opacity: 0;
+  animation: glowIn 2s ease forwards;
+  animation-delay: 6s;
+}
 
-    /* ---------- BUTTON ---------- */
-    .btn {
-      margin-top: 35px;
-      padding: 14px 38px;
-      border-radius: 40px;
-      border: none;
-      background: white;
-      color: #e75480;
-      font-size: 1rem;
-      font-weight: 500;
-      cursor: pointer;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.25);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
+footer {
+  margin-top: 40px;
+  font-size: 0.9rem;
+  opacity: 0.6;
+}
 
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 18px 45px rgba(0,0,0,0.3);
-    }
+.hidden {
+  display: none;
+}
 
-    /* ---------- SLIDES ---------- */
-    .slide {
-      display: none;
-      animation: fade 0.8s ease;
-    }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-    .slide.active {
-      display: block;
-    }
-
-    /* ---------- MESSAGE ---------- */
-    .message {
-      font-size: 1.15rem;
-      line-height: 1.9;
-      min-height: 220px;
-    }
-
-    footer {
-      margin-top: 35px;
-      font-size: 1rem;
-      opacity: 0.85;
-    }
-
-    /* ---------- HEARTS ---------- */
-    .heart {
-      position: fixed;
-      bottom: -30px;
-      font-size: 20px;
-      animation: float 6s linear infinite;
-      opacity: 0.6;
-    }
-
-    @keyframes float {
-      to {
-        transform: translateY(-120vh);
-        opacity: 0;
-      }
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fade {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-  </style>
+@keyframes glowIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
 </head>
 
 <body>
 
-<!-- 🎁 REVEAL -->
-<div class="center" id="revealScreen">
-  <div class="card">
-    <h1>For you 🤍</h1>
-    <p>
-      This isn’t something big.  
-      Just something gentle… made with care.
-    </p>
-    <button class="btn" onclick="reveal()">Open</button>
-  </div>
+<!-- First Screen -->
+<div class="card" id="intro">
+  <h1>Hey 🤍</h1>
+  <h2>I made something for you.</h2>
+  <button onclick="showMain()">Open</button>
 </div>
 
-<!-- 🌸 SLIDES -->
-<div class="center hidden" id="slides">
-  <div class="card">
-    <div class="slide active">
-      <p>
-        Some people leave a quiet impression.  
-        Not loud. Not dramatic.  
-        Just… meaningful.
-      </p>
-    </div>
+<!-- Main Screen -->
+<div class="card hidden" id="mainContent">
+  <h1>Happy Birthday</h1>
+  <h2>Nivedha ✨</h2>
 
-    <div class="slide">
-      <p>
-        A few moments.  
-        A few conversations.  
-        Still remembered kindly.
-      </p>
-    </div>
+  <div class="message" id="typeText"></div>
 
-    <div class="slide">
-      <p>
-        This page exists only to say one thing —  
-        what we shared mattered to me.
-      </p>
-    </div>
-
-    <div class="slide">
-      <p>
-        Wherever life takes you,  
-        I truly wish you warmth, peace,  
-        and beautiful days ahead.
-      </p>
-    </div>
-
-    <button class="btn" onclick="nextSlide()">Continue</button>
+  <div class="final-line">
+    ✨ May this year be kind, calm and beautiful for you 🤍
   </div>
+
+  <footer>
+    Always wishing you well.
+  </footer>
 </div>
-
-<!-- 🎂 FINAL MESSAGE -->
-<div class="center hidden" id="mainContent">
-  <div class="card">
-    <h1>Happy Birthday 🎂</h1>
-    <h2>Nivedha</h2>
-
-    <div class="message" id="typeText"></div>
-
-    <footer>
-      Always wishing you well.
-    </footer>
-  </div>
-</div>
-
-<!-- 🎶 MUSIC -->
-<audio id="bgMusic" loop>
-  <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
-</audio>
 
 <script>
-  function reveal() {
-    document.getElementById("revealScreen").classList.add("hidden");
-    document.getElementById("slides").classList.remove("hidden");
-    document.getElementById("bgMusic").play();
-  }
+function showMain() {
+  document.getElementById("intro").classList.add("hidden");
+  document.getElementById("mainContent").classList.remove("hidden");
+  typeMessage();
+}
 
-  let s = 0;
-  const slides = document.querySelectorAll(".slide");
+const lines = [
+  "Today is your day.",
+  "",
+  "I hope it brings you calm moments,",
+  "soft smiles, and quiet happiness.",
+  "",
+  "May the year ahead be kind to you,",
+  "and give you everything you truly deserve."
+];
 
-  function nextSlide() {
-    slides[s].classList.remove("active");
-    s++;
-    if (s < slides.length) {
-      slides[s].classList.add("active");
+let i = 0;
+let j = 0;
+let currentLine = "";
+let isDeleting = false;
+
+function typeMessage() {
+  if (i < lines.length) {
+    if (j < lines[i].length) {
+      currentLine += lines[i][j];
+      document.getElementById("typeText").innerHTML += lines[i][j];
+      j++;
+      setTimeout(typeMessage, 40);
     } else {
-      document.getElementById("slides").classList.add("hidden");
-      document.getElementById("mainContent").classList.remove("hidden");
-      startTyping();
+      document.getElementById("typeText").innerHTML += "<br/>";
+      i++;
+      j = 0;
+      currentLine = "";
+      setTimeout(typeMessage, 400);
     }
   }
-
-  const lines = [
-    "Today is your day.",
-    "",
-    "I hope it brings you calm moments,",
-    "soft smiles, and quiet happiness.",
-    "",
-    "May the year ahead be kind to you,",
-    "and give you everything you deserve.",
-    "",
-    "Happy Birthday 🤍"
-  ];
-
-  let li = 0, ci = 0;
-
-  function startTyping() {
-    if (li < lines.length) {
-      if (ci < lines[li].length) {
-        document.getElementById("typeText").innerHTML += lines[li][ci++];
-        setTimeout(startTyping, 40);
-      } else {
-        document.getElementById("typeText").innerHTML += "<br><br>";
-        ci = 0; li++;
-        setTimeout(startTyping, 400);
-      }
-    }
-  }
-
-  function heart() {
-    const h = document.createElement("div");
-    h.className = "heart";
-    h.innerHTML = "🤍";
-    h.style.left = Math.random() * 100 + "vw";
-    h.style.animationDuration = (Math.random() * 3 + 4) + "s";
-    document.body.appendChild(h);
-    setTimeout(() => h.remove(), 7000);
-  }
-
-  setInterval(heart, 600);
+}
 </script>
 
 </body>
