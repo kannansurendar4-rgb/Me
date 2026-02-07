@@ -9,89 +9,109 @@
 
 <style>
 :root {
-  --bg1: #0f2027;
-  --bg2: #203a43;
-  --bg3: #2c5364;
-  --text-soft: #f4f4f4;
+  --primary: #ffffff;
+  --soft: #e8f0f5;
 }
 
 body {
   margin: 0;
   height: 100vh;
   overflow: hidden;
-  background: linear-gradient(135deg, var(--bg1), var(--bg2), var(--bg3));
   font-family: "Inter", sans-serif;
-  color: var(--text-soft);
+  background: radial-gradient(circle at 20% 20%, #1f3c4d, #0f2027 70%);
+  color: var(--soft);
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+/* Floating Background Glow */
+body::before {
+  content: "";
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(255,255,255,0.08), transparent 70%);
+  animation: floatGlow 10s infinite alternate ease-in-out;
+}
+
+@keyframes floatGlow {
+  from { transform: translate(-100px,-100px); }
+  to { transform: translate(100px,100px); }
+}
+
 .card {
   text-align: center;
-  max-width: 600px;
+  max-width: 650px;
   padding: 40px;
-  animation: fadeUp 1.2s ease;
+  z-index: 2;
+  animation: fadeIn 1.5s ease;
 }
 
 h1 {
   font-family: "Playfair Display", serif;
-  font-size: 2.8rem;
+  font-size: 3rem;
   margin-bottom: 10px;
 }
 
-h2 {
-  font-weight: 400;
-  opacity: 0.9;
-  margin-bottom: 30px;
+.name {
+  font-size: 1.5rem;
+  margin-bottom: 25px;
+  animation: heartbeat 2s infinite;
+}
+
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  25% { transform: scale(1.05); }
+  50% { transform: scale(1); }
 }
 
 button {
-  padding: 12px 30px;
+  padding: 12px 32px;
   border-radius: 30px;
   border: none;
   background: white;
-  color: #203a43;
+  color: #0f2027;
   font-weight: 500;
   cursor: pointer;
   transition: 0.3s;
 }
 
 button:hover {
-  transform: scale(1.05);
-}
-
-.message {
-  font-size: 1.2rem;
-  line-height: 2;
-  margin-top: 20px;
-}
-
-.final-line {
-  margin-top: 30px;
-  font-size: 1.5rem;
-  font-family: "Playfair Display", serif;
-  opacity: 0;
-  animation: glowIn 2s ease forwards;
-  animation-delay: 6s;
-}
-
-footer {
-  margin-top: 40px;
-  font-size: 0.9rem;
-  opacity: 0.6;
+  transform: scale(1.08);
 }
 
 .hidden {
   display: none;
 }
 
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+.message {
+  font-size: 1.2rem;
+  line-height: 2;
+  min-height: 150px;
 }
 
-@keyframes glowIn {
+.final-line {
+  margin-top: 30px;
+  font-size: 1.6rem;
+  font-family: "Playfair Display", serif;
+  opacity: 0;
+  animation: reveal 2s forwards;
+  animation-delay: 7s;
+}
+
+footer {
+  margin-top: 40px;
+  opacity: 0.6;
+  font-size: 0.9rem;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes reveal {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
@@ -100,22 +120,23 @@ footer {
 
 <body>
 
-<!-- First Screen -->
+<!-- Intro -->
 <div class="card" id="intro">
   <h1>Hey 🤍</h1>
-  <h2>I made something for you.</h2>
-  <button onclick="showMain()">Open</button>
+  <p>I made something special for you.</p>
+  <br>
+  <button onclick="start()">Open</button>
 </div>
 
-<!-- Main Screen -->
+<!-- Main Content -->
 <div class="card hidden" id="mainContent">
   <h1>Happy Birthday</h1>
-  <h2>Nivedha ✨</h2>
+  <div class="name">Nivedha ✨</div>
 
   <div class="message" id="typeText"></div>
 
   <div class="final-line">
-    ✨ May this year be kind, calm and beautiful for you 🤍
+    ✨ May this year bring you peace, growth, and everything your heart quietly wishes for 🤍
   </div>
 
   <footer>
@@ -124,40 +145,37 @@ footer {
 </div>
 
 <script>
-function showMain() {
+function start() {
   document.getElementById("intro").classList.add("hidden");
   document.getElementById("mainContent").classList.remove("hidden");
-  typeMessage();
+  typeEffect();
 }
 
-const lines = [
-  "Today is your day.",
+const textLines = [
+  "Today is about you.",
   "",
-  "I hope it brings you calm moments,",
-  "soft smiles, and quiet happiness.",
+  "Your smile.",
+  "Your strength.",
+  "Your quiet magic.",
   "",
-  "May the year ahead be kind to you,",
-  "and give you everything you truly deserve."
+  "I hope this year surprises you in beautiful ways,",
+  "and gives you moments that stay in your heart."
 ];
 
-let i = 0;
-let j = 0;
-let currentLine = "";
-let isDeleting = false;
+let lineIndex = 0;
+let charIndex = 0;
 
-function typeMessage() {
-  if (i < lines.length) {
-    if (j < lines[i].length) {
-      currentLine += lines[i][j];
-      document.getElementById("typeText").innerHTML += lines[i][j];
-      j++;
-      setTimeout(typeMessage, 40);
+function typeEffect() {
+  if (lineIndex < textLines.length) {
+    if (charIndex < textLines[lineIndex].length) {
+      document.getElementById("typeText").innerHTML += textLines[lineIndex][charIndex];
+      charIndex++;
+      setTimeout(typeEffect, 40);
     } else {
       document.getElementById("typeText").innerHTML += "<br/>";
-      i++;
-      j = 0;
-      currentLine = "";
-      setTimeout(typeMessage, 400);
+      lineIndex++;
+      charIndex = 0;
+      setTimeout(typeEffect, 400);
     }
   }
 }
